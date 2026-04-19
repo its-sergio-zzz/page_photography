@@ -1,5 +1,5 @@
 import { Box, Typography, Grid } from '@mui/material'
-import profileImg from '../../assets/IMG_0645.JPG'
+import profileImg from '../../assets/IMG_0645.jpg'
 
 export default function About() {
   return (
