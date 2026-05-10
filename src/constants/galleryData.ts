@@ -31,6 +31,5 @@ export const galleryImages: GalleryImage[] = [
   { id: 21, src: img('IMG_0860.webp'),               alt: 'Fotografía 21' },
   { id: 22, src: img('IMG_0861.webp'),               alt: 'Fotografía 22' },
   { id: 23, src: img('IMG_0864.webp'),               alt: 'Fotografía 23' },
-  { id: 24, src: img('alejo.webp'),                  alt: 'Fotografía 24' },
-  { id: 25, src: img('IMG_20251110_092316_927.webp'), alt: 'Fotografía 25' },
+  { id: 24, src: img('IMG_20251110_092316_927.webp'), alt: 'Fotografía 24' },
 ]
