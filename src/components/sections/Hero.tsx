@@ -4,8 +4,9 @@ import { Box, Typography, Button, Stack } from '@mui/material'
 import slide1 from '../../assets/IMG_0861.jpg'
 import slide2 from '../../assets/DSC06190.jpg'
 import slide3 from '../../assets/DSC06186.jpg'
+import slide4 from '../../assets/IMG_20251110_092316_927.jpg'
 
-const SLIDES = [slide1, slide2, slide3]
+const SLIDES = [slide1, slide2, slide3, slide4]
 const INTERVAL = 5000
 
 export default function Hero() {
@@ -105,10 +106,7 @@ export default function Hero() {
           maxWidth: 900,
         }}
       >
-        <Typography variant="caption" display="block" sx={{ mb: 3, color: 'secondary.main' }}>
-          Fotografía · Bogotá, Colombia
-        </Typography>
-
+        
         <Typography variant="h1" sx={{ mb: 4 }}>
           Momentos<br />
           <Box component="em" sx={{ fontStyle: 'italic', color: 'primary.dark' }}>
@@ -160,8 +158,8 @@ export default function Hero() {
             key={i}
             onClick={() => goTo(i)}
             sx={{
-              width: i === current ? 32 : 8,
-              height: 2,
+              width: i === current ? 28 : 6,
+              height: 1.5,
               backgroundColor:
                 i === current
                   ? 'primary.main'
@@ -188,14 +186,14 @@ export default function Hero() {
       >
         <Typography
           variant="caption"
-          sx={{ color: 'text.disabled', writingMode: 'vertical-rl' }}
+          sx={{ color: 'text.disabled', writingMode: 'vertical-rl', fontSize: '0.6rem', letterSpacing: '0.1em' }}
         >
           scroll
         </Typography>
         <Box
           sx={{
             width: 1,
-            height: 60,
+            height: 50,
             backgroundColor: 'rgba(232,224,213,0.2)',
           }}
         />

@@ -6,6 +6,7 @@ import {
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import CloseIcon from '@mui/icons-material/Close'
+import logo from '../../assets/Logo.png'
 
 const NAV_LINKS = [
   { label: 'Portfolio', href: '#portfolio' },
@@ -58,23 +59,43 @@ export default function Navbar() {
             minHeight: { xs: '64px', md: '80px' },
           }}
         >
+          {/* ── Logo + Texto ── */}
           <Box
             component="a"
             href="#"
             sx={{
               textDecoration: 'none',
-              color: 'white',
-              fontFamily: '"Cormorant Garamond", serif',
-              fontWeight: 400,
-              fontSize: { xs: '1.1rem', md: '1.3rem' },
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              textShadow: '0 1px 8px rgba(0,0,0,0.8)',
               position: 'relative',
               zIndex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1.5,
             }}
           >
-            Fotógrafo
+            <Box
+              component="img"
+              src={logo}
+              alt=""
+              sx={{
+                height: { xs: '36px', md: '44px' },
+                width: 'auto',
+                objectFit: 'contain',
+                filter: 'brightness(0) invert(1) drop-shadow(0 1px 8px rgba(0,0,0,0.8))',
+              }}
+            />
+            <Box
+              sx={{
+                color: 'white',
+                fontFamily: '"Cormorant Garamond", serif',
+                fontWeight: 400,
+                fontSize: { xs: '0.75rem', md: '0.9rem' },
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                textShadow: '0 1px 8px rgba(0,0,0,0.8)',
+              }}
+            >
+              Alejandro Castillo | Fotógrafo de Eventos
+            </Box>
           </Box>
 
           {!isMobile && (

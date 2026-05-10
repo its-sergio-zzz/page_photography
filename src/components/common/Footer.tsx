@@ -30,24 +30,17 @@ export default function Footer() {
               color: 'text.primary',
             }}
           >
-            Fotógrafo
+            Alejandro Castillo | Fotógrafo de Eventos
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }}>
             Fotografía profesional · Colombia
           </Typography>
         </Box>
 
-        <Stack direction="row" spacing={1}>
-          <IconButton href="https://instagram.com" target="_blank" sx={{ color: 'text.secondary', '&:hover': { color: 'text.primary' } }}>
-            <InstagramIcon fontSize="small" />
-          </IconButton>
-          <IconButton href="https://wa.me/" target="_blank" sx={{ color: 'text.secondary', '&:hover': { color: 'text.primary' } }}>
-            <WhatsAppIcon fontSize="small" />
-          </IconButton>
-        </Stack>
+        
 
         <Typography variant="caption" sx={{ color: 'text.disabled' }}>
-          © {new Date().getFullYear()} Fotógrafo. Todos los derechos reservados.
+          © {new Date().getFullYear()} Alejandro Castillo. Todos los derechos reservados. 
         </Typography>
       </Stack>
     </Box>

@@ -21,6 +21,8 @@ import IMG_0855 from '../assets/IMG_0855.jpg'
 import IMG_0860 from '../assets/IMG_0860.jpg'
 import IMG_0861 from '../assets/IMG_0861.jpg'
 import IMG_0864 from '../assets/IMG_0864.jpg'
+import alejo from '../assets/alejo.png'
+import IMG_20251110_092316_927 from '../assets/IMG_20251110_092316_927.jpg'
 
 export interface GalleryImage {
   id: number
@@ -52,4 +54,6 @@ export const galleryImages: GalleryImage[] = [
   { id: 21, src: IMG_0860,   alt: 'Fotografía 21' },
   { id: 22, src: IMG_0861,   alt: 'Fotografía 22' },
   { id: 23, src: IMG_0864,   alt: 'Fotografía 23' },
+  { id: 24, src: alejo,   alt: 'Fotografía 24' },
+  { id: 25, src: IMG_20251110_092316_927,   alt: 'Fotografía 25' },
 ]
