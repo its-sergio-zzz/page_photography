@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { useState, useEffect } from 'react'
-import profileImg from '../../assets/alejo.png'
+import profileImg from '../../assets/alejo.webp'
 
 const phrases = [
   { quote: "La luz no se inventa — se espera.", sub: "Sobre la paciencia" },

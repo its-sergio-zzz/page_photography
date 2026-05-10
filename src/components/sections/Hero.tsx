@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Box, Typography, Button, Stack } from '@mui/material'
 
-import slide1 from '../../assets/IMG_0861.jpg'
-import slide2 from '../../assets/DSC06190.jpg'
-import slide3 from '../../assets/DSC06186.jpg'
-import slide4 from '../../assets/IMG_20251110_092316_927.jpg'
+import slide1 from '../../assets/IMG_0861.webp'
+import slide2 from '../../assets/DSC06190.webp'
+import slide3 from '../../assets/DSC06186.webp'
+import slide4 from '../../assets/IMG_20251110_092316_927.webp'
 
 const SLIDES = [slide1, slide2, slide3, slide4]
 const INTERVAL = 5000

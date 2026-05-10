@@ -6,7 +6,7 @@ import {
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import CloseIcon from '@mui/icons-material/Close'
-import logo from '../../assets/Logo.png'
+import logo from '../../assets/Logo.webp'
 
 const NAV_LINKS = [
   { label: 'Portfolio', href: '#portfolio' },
