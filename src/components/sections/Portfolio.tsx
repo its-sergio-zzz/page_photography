@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 import { useState, useEffect, useCallback } from 'react'
 import { galleryImages } from '../../constants/galleryData'
 
@@ -25,7 +26,14 @@ const QUOTES = [
   { text: "Cada sesión me recuerda por qué elegí este oficio.", author: "A. Castillo" },
 ]
 
+const EAGER_COUNT = 6
+
 export default function Portfolio() {
+  const theme = useTheme()
+  const isXs = useMediaQuery(theme.breakpoints.down('sm'))
+  const isSm = useMediaQuery(theme.breakpoints.between('sm', 'md'))
+  const cols = isXs ? 1 : isSm ? 2 : 3
+
   const [selected, setSelected] = useState<number | null>(null)
   const [visible, setVisible] = useState(false)
   const [closing, setClosing] = useState(false)
@@ -74,6 +82,11 @@ export default function Portfolio() {
   const activeIdx = galleryImages.findIndex(i => i.id === selected)
   const quote = QUOTES[quoteIdx]
 
+  const columns: typeof galleryImages[] = Array.from({ length: cols }, () => [])
+  galleryImages.forEach((img, idx) => {
+    columns[idx % cols].push(img)
+  })
+
   return (
     <Box
       component="section"
@@ -113,50 +126,58 @@ export default function Portfolio() {
         </Typography>
       </Box>
 
-      {/* ── Grid ── */}
-      <Box
-        sx={{
-          columns: { xs: 1, sm: 2, md: 3 },
-          columnGap: '10px',
-          '& > *': {
-            breakInside: 'avoid',
-            marginBottom: '10px',
-            display: 'block',
-          },
-        }}
-      >
-        {galleryImages.map((img, idx) => (
+      {/* ── Masonry manual ── */}
+      <Box sx={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+        {columns.map((colImgs, colIdx) => (
           <Box
-            key={img.id}
-            onClick={() => openLightbox(img.id, idx)}
-            sx={{
-              overflow: 'hidden',
-              cursor: 'pointer',
-              position: 'relative',
-              lineHeight: 0,
-              '&::after': {
-                content: '""',
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 55%)',
-                opacity: 0,
-                transition: 'opacity 0.4s ease',
-              },
-              '&:hover::after': { opacity: 1 },
-              '& img': {
-                width: '100%',
-                height: 'auto',
-                display: 'block',
-                transition: 'transform 0.6s cubic-bezier(0.4,0,0.2,1), filter 0.4s ease',
-                filter: 'brightness(0.88) saturate(0.93)',
-              },
-              '&:hover img': {
-                transform: 'scale(1.04)',
-                filter: 'brightness(1) saturate(1)',
-              },
-            }}
+            key={colIdx}
+            sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}
           >
-            <img src={img.src} alt={img.alt} loading="lazy" />
+            {colImgs.map((img) => {
+              const globalIdx = galleryImages.findIndex(i => i.id === img.id)
+              const isEager = globalIdx < EAGER_COUNT
+              return (
+                <Box
+                  key={img.id}
+                  onClick={() => openLightbox(img.id, globalIdx)}
+                  sx={{
+                    overflow: 'hidden',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    lineHeight: 0,
+                    backgroundColor: 'rgba(255,255,255,0.04)',
+                    '&::after': {
+                      content: '""',
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 55%)',
+                      opacity: 0,
+                      transition: 'opacity 0.4s ease',
+                    },
+                    '&:hover::after': { opacity: 1 },
+                    '& img': {
+                      width: '100%',
+                      height: 'auto',
+                      display: 'block',
+                      transition: 'transform 0.6s cubic-bezier(0.4,0,0.2,1), filter 0.4s ease',
+                      filter: 'brightness(0.88) saturate(0.93)',
+                    },
+                    '&:hover img': {
+                      transform: 'scale(1.04)',
+                      filter: 'brightness(1) saturate(1)',
+                    },
+                  }}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading={isEager ? 'eager' : 'lazy'}
+                    decoding="async"
+                    fetchPriority={isEager ? 'high' : 'low'}
+                  />
+                </Box>
+              )
+            })}
           </Box>
         ))}
       </Box>
@@ -204,8 +225,6 @@ export default function Portfolio() {
                   boxShadow: '0 40px 100px rgba(0,0,0,0.7)',
                 }}
               />
-
-              {/* Contador */}
               <Typography
                 sx={{
                   mt: 2,
@@ -248,7 +267,6 @@ export default function Portfolio() {
             >
               Sobre el instante
             </Typography>
-
             <Typography
               sx={{
                 fontFamily: '"Cormorant Garamond", serif',
@@ -257,12 +275,10 @@ export default function Portfolio() {
                 fontWeight: 300,
                 color: 'rgba(255,255,255,0.85)',
                 lineHeight: 1.45,
-                transition: 'opacity 0.3s ease',
               }}
             >
               "{quote.text}"
             </Typography>
-
             <Typography
               sx={{
                 color: 'rgba(255,255,255,0.25)',
@@ -283,7 +299,6 @@ export default function Portfolio() {
             >
               {quote.author}
             </Typography>
-
             <Box
               onClick={closeLightbox}
               sx={{
