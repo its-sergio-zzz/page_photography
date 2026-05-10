@@ -1,5 +1,4 @@
 import { Box, Typography } from '@mui/material'
-import { useMediaQuery, useTheme } from '@mui/material'
 import { useState, useEffect, useCallback } from 'react'
 import { galleryImages } from '../../constants/galleryData'
 
@@ -29,11 +28,6 @@ const QUOTES = [
 const EAGER_COUNT = 6
 
 export default function Portfolio() {
-  const theme = useTheme()
-  const isXs = useMediaQuery(theme.breakpoints.down('sm'))
-  const isSm = useMediaQuery(theme.breakpoints.between('sm', 'md'))
-  const cols = isXs ? 1 : isSm ? 2 : 3
-
   const [selected, setSelected] = useState<number | null>(null)
   const [visible, setVisible] = useState(false)
   const [closing, setClosing] = useState(false)
@@ -82,11 +76,6 @@ export default function Portfolio() {
   const activeIdx = galleryImages.findIndex(i => i.id === selected)
   const quote = QUOTES[quoteIdx]
 
-  const columns: typeof galleryImages[] = Array.from({ length: cols }, () => [])
-  galleryImages.forEach((img, idx) => {
-    columns[idx % cols].push(img)
-  })
-
   return (
     <Box
       component="section"
@@ -126,60 +115,62 @@ export default function Portfolio() {
         </Typography>
       </Box>
 
-      {/* ── Masonry manual ── */}
-      <Box sx={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-        {columns.map((colImgs, colIdx) => (
-          <Box
-            key={colIdx}
-            sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}
-          >
-            {colImgs.map((img) => {
-              const globalIdx = galleryImages.findIndex(i => i.id === img.id)
-              const isEager = globalIdx < EAGER_COUNT
-              return (
-                <Box
-                  key={img.id}
-                  onClick={() => openLightbox(img.id, globalIdx)}
-                  sx={{
-                    overflow: 'hidden',
-                    cursor: 'pointer',
-                    position: 'relative',
-                    lineHeight: 0,
-                    backgroundColor: 'rgba(255,255,255,0.04)',
-                    '&::after': {
-                      content: '""',
-                      position: 'absolute',
-                      inset: 0,
-                      background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 55%)',
-                      opacity: 0,
-                      transition: 'opacity 0.4s ease',
-                    },
-                    '&:hover::after': { opacity: 1 },
-                    '& img': {
-                      width: '100%',
-                      height: 'auto',
-                      display: 'block',
-                      transition: 'transform 0.6s cubic-bezier(0.4,0,0.2,1), filter 0.4s ease',
-                      filter: 'brightness(0.88) saturate(0.93)',
-                    },
-                    '&:hover img': {
-                      transform: 'scale(1.04)',
-                      filter: 'brightness(1) saturate(1)',
-                    },
-                  }}
-                >
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    loading={isEager ? 'eager' : 'lazy'}
-                    decoding="async"
-                    fetchPriority={isEager ? 'high' : 'low'}
-                  />
-                </Box>
-              )
-            })}
-          </Box>
-        ))}
+      {/* ── Masonry fluid columns ── */}
+      <Box
+        sx={{
+          columns: { xs: 1, sm: 2, md: 3 },
+          columnGap: '10px',
+          px: { xs: 0, md: 0 },
+        }}
+      >
+        {galleryImages.map((img, globalIdx) => {
+          const isEager = globalIdx < EAGER_COUNT
+          return (
+            <Box
+              key={img.id}
+              onClick={() => openLightbox(img.id, globalIdx)}
+              sx={{
+                display: 'inline-block',
+                width: '100%',
+                breakInside: 'avoid',
+                mb: '10px',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                position: 'relative',
+                lineHeight: 0,
+                backgroundColor: 'rgba(255,255,255,0.04)',
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 55%)',
+                  opacity: 0,
+                  transition: 'opacity 0.4s ease',
+                },
+                '&:hover::after': { opacity: 1 },
+                '& img': {
+                  width: '100%',
+                  height: 'auto',
+                  display: 'block',
+                  transition: 'transform 0.6s cubic-bezier(0.4,0,0.2,1), filter 0.4s ease',
+                  filter: 'brightness(0.88) saturate(0.93)',
+                },
+                '&:hover img': {
+                  transform: 'scale(1.04)',
+                  filter: 'brightness(1) saturate(1)',
+                },
+              }}
+            >
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading={isEager ? 'eager' : 'lazy'}
+                decoding="async"
+                fetchPriority={isEager ? 'high' : 'low'}
+              />
+            </Box>
+          )
+        })}
       </Box>
 
       {/* ── Lightbox ── */}
