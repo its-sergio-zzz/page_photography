@@ -1,6 +1,4 @@
-import { Box, Typography, Stack, IconButton } from '@mui/material'
-import InstagramIcon from '@mui/icons-material/Instagram'
-import WhatsAppIcon from '@mui/icons-material/WhatsApp'
+import { Box, Typography, Stack } from '@mui/material'
 
 export default function Footer() {
   return (
@@ -16,9 +14,8 @@ export default function Footer() {
     >
       <Stack
         direction={{ xs: 'column', md: 'row' }}
-        justifyContent="space-between"
-        alignItems={{ xs: 'flex-start', md: 'center' }}
         spacing={3}
+        sx={{ justifyContent: 'space-between', alignItems: { xs: 'flex-start', md: 'center' } }}
       >
         <Box>
           <Typography

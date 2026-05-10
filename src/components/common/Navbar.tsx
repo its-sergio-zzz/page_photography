@@ -139,12 +139,14 @@ export default function Navbar() {
         anchor="right"
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
-        PaperProps={{
-          sx: {
-            backgroundColor: 'background.default',
-            width: '75vw',
-            maxWidth: 320,
-            borderLeft: '1px solid rgba(232,224,213,0.08)',
+        slotProps={{
+          paper: {
+            sx: {
+              backgroundColor: 'background.default',
+              width: '75vw',
+              maxWidth: 320,
+              borderLeft: '1px solid rgba(232,224,213,0.08)',
+            },
           },
         }}
       >

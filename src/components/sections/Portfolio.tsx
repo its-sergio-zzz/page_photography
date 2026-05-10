@@ -1,5 +1,4 @@
-import { Box, Typography, ImageList, ImageListItem } from '@mui/material'
-import { useMediaQuery, useTheme } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { useState, useEffect, useCallback } from 'react'
 import { galleryImages } from '../../constants/galleryData'
 
@@ -27,11 +26,6 @@ const QUOTES = [
 ]
 
 export default function Portfolio() {
-  const theme = useTheme()
-  const isXs = useMediaQuery(theme.breakpoints.down('sm'))
-  const isSm = useMediaQuery(theme.breakpoints.between('sm', 'md'))
-  const cols = isXs ? 1 : isSm ? 2 : 3
-
   const [selected, setSelected] = useState<number | null>(null)
   const [visible, setVisible] = useState(false)
   const [closing, setClosing] = useState(false)
@@ -103,7 +97,7 @@ export default function Portfolio() {
         }}
       >
         <Box>
-          <Typography variant="caption" display="block" sx={{ color: 'secondary.main', mb: 2 }}>
+          <Typography variant="caption" sx={{ display: 'block', color: 'secondary.main', mb: 2 }}>
             01 — Portfolio
           </Typography>
           <Typography variant="h2">
